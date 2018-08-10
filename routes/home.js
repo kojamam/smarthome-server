@@ -5,8 +5,12 @@ const router = express.Router();
 
 /* smart home api */
 router.post('/', function (req, res, next) {
-    console.log(req.body);
-    res.send({"aa":"aa"});
+    let msg;
+    if (req.body.token === process.env.ACCESS_TOKEN) {
+        res.send({ "result": "accepted" });
+    } else {
+        res.status(400).send({ "result": "invalid token" });
+    }
 });
 
 module.exports = router;

@@ -5,9 +5,12 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const dotenv = require('dotenv');
+
 
 const homeRouter = require('./routes/home');
 
+dotenv.config();
 const app = express();
 
 // view engine setup

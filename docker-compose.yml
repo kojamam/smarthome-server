@@ -1,0 +1,12 @@
+version: '2'
+services:
+  node_express:
+    image: node
+    container_name: smarthome
+    hostname: smarthome
+    volumes:
+      - ".:/src"
+    working_dir: /src
+    command: [sh, -c, npm install && npm start]
+    ports:
+      - "5000:5000"
