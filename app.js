@@ -49,12 +49,12 @@ let server = app.listen(port, () => {
 /**
  * WebSocket
  */
-wsServer = new WebSocketServer({
+const wsServer = new WebSocketServer({
   httpServer: server,
   autoAcceptConnections: false
 });
 
-function originIsAllowed(origin) {
+const originIsAllowed = (origin) => {
   //TODO ここで接続元を見る
   console.log(origin);
   return true;
@@ -86,6 +86,6 @@ wsServer.on('request', function (request) {
   });
 });
 
-function sendToClient(payload) {
+const sendToClient = (payload) => {
   connection.sendUTF(payload);
 }
