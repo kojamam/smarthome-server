@@ -1,4 +1,4 @@
-`use strict`
+'use strict'
 
 /**
  * Dependency
@@ -54,13 +54,15 @@ const wsServer = new WebSocketServer({
   autoAcceptConnections: false
 });
 
+let connection = null;
+
 const originIsAllowed = (origin) => {
-  //TODO ここで接続元を見る
-  console.log(origin);
+  if (origin !== process.env.ACCESS_TOKEN || connection !== null) {
+    return false;
+  }
   return true;
 }
 
-let connection = null;
 
 wsServer.on('request', function (request) {
   if (!originIsAllowed(request.origin)) {
@@ -74,10 +76,8 @@ wsServer.on('request', function (request) {
   connection.on('message', function (message) {
     if (message.type === 'utf8') {
       console.log('Received Message: ' + message.utf8Data);
-      connection.sendUTF(message.utf8Data);
     } else if (message.type === 'binary') {
       console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
-      connection.sendBytes(message.binaryData);
     }
   });
   connection.on('close', function (reasonCode, description) {
