@@ -30,7 +30,10 @@ app.use(express.static(path.join(__dirname, 'public')));
  */
 app.post('/home', function (req, res, next) {
   let msg;
-  sendToClient(JSON.stringify(req.body));
+  let sendBody = {
+    'commands': req.body.commands
+  }
+  sendToClient(JSON.stringify(sendBody));
   if (req.body.token === process.env.ACCESS_TOKEN) {
     res.send({ "result": "accepted" });
   } else {
