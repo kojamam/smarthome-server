@@ -8,5 +8,8 @@ services:
       - ".:/src"
     working_dir: /src
     command: [sh, -c, npm install && npm start]
-    ports:
-      - "5000:5000"
+    networks:
+      - https_link
+networks:
+  https_link:
+    external: true

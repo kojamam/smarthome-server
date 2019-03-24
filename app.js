@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 /**
  * express routing
  */
-app.post('/home', function (req, res, next) {
+app.post('/', function (req, res, next) {
   let msg;
   let sendBody = {
     'commands': req.body.commands
@@ -56,7 +56,7 @@ const wsServer = new WebSocketServer({
   httpServer: server,
   autoAcceptConnections: false
 });
-
+console.log(process.env.ACCESS_TOKEN)
 let connection = null;
 
 const originIsAllowed = (origin) => {
@@ -74,7 +74,7 @@ wsServer.on('request', function (request) {
     return;
   }
 
-  connection = request.accept('khp', request.origin);
+  connection = request.accept('hcp', request.origin); //hcp=home control protocol
   console.log((new Date()) + ' Connection accepted.');
   connection.on('message', function (message) {
     if (message.type === 'utf8') {
